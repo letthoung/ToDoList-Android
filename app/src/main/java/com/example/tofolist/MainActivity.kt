@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume();
-        var prefs = getSharedPreferences("com.example.todolist.sharedprefs", Context.MODE_PRIVATE)
-        var todos = prefs.getStringSet("todos", setOf())?.toMutableSet();
+        var prefs = getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+        var todos = prefs.getStringSet(getString(R.string.pref_key), setOf())?.toMutableSet();
 
         Log.d("todoList", todos.toString());
 

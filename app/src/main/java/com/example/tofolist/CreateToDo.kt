@@ -19,10 +19,10 @@ class CreateToDo : AppCompatActivity() {
             checkBox.visibility = View.INVISIBLE;
             button.setText("COMPLETE");
             button.setOnClickListener{
-                var prefs = getSharedPreferences("com.example.todolist.sharedprefs",Context.MODE_PRIVATE);
-                var todos = prefs.getStringSet("todos", setOf())?.toMutableSet();
+                var prefs = getSharedPreferences(getString(R.string.shared_pref),Context.MODE_PRIVATE);
+                var todos = prefs.getStringSet(getString(R.string.pref_key), setOf())?.toMutableSet();
                 todos?.remove(todo);
-                prefs.edit().putStringSet("todos", todos).apply();
+                prefs.edit().putStringSet(getString(R.string.pref_key), todos).apply();
                 finish();
             }
         } else {
@@ -34,11 +34,11 @@ class CreateToDo : AppCompatActivity() {
                     todoDesc = editText.text.toString();
                 }
                 var prefs =
-                    getSharedPreferences("com.example.todolist.sharedprefs", Context.MODE_PRIVATE);
-                var todos = prefs.getStringSet("todos", setOf())?.toMutableSet();
+                    getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE);
+                var todos = prefs.getStringSet(getString(R.string.pref_key), setOf())?.toMutableSet();
                 todos?.add(todoDesc);
                 Log.d("todoList", todos.toString());
-                prefs.edit().putStringSet("todos", todos).apply();
+                prefs.edit().putStringSet(getString(R.string.pref_key), todos).apply();
                 finish();
             }
         }
