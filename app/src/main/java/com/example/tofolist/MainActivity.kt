@@ -32,21 +32,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        if (item.itemId == R.id.action_delete_all) {
+            var prefs = getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE);
+            prefs.edit().putString(getString(R.string.pref_key),null).apply();
+            updateRecycler();
+            return true;
+        }
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_delete_all -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onResume() {
         super.onResume();
+        updateRecycler();
+    }
+
+    fun updateRecycler() {
         var prefs = getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
         var todos = prefs.getStringSet(getString(R.string.pref_key), setOf())?.toMutableSet();
-
-        Log.d("todoList", todos.toString());
 
         layoutManager = LinearLayoutManager(this);
         adapter = ToDoAdapter(todos!!.toList());
